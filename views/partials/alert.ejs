@@ -1,0 +1,14 @@
+<% if (alertData.message != "") { %>
+<div class="alert alert-<%= alertData.status %> alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+    &times;
+  </button>
+  <h5>
+    <i
+      class="icon fas fa-<%= alertData.status == 'success' ? 'check' : 'ban' %>"
+    ></i>
+    <%= alertData.status == 'success' ? 'Yay!' : 'Oops!' %>
+  </h5>
+  <%= alertData.message %>
+</div>
+<% } %>

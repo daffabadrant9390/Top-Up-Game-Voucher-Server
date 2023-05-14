@@ -3,8 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const methodOverride = require('method-override');
+const flash = require('connect-flash');
+const session = require('express-session');
 
-var indexRouter = require('./app/category/routes');
+const dashboardRouter = require('./app/dashboard/routes');
+const categoryRouter = require('./app/category/routes');
 
 var app = express();
 
@@ -12,6 +16,16 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(
+  session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {},
+  })
+);
+app.use(flash());
+app.use(methodOverride('_method'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -22,7 +36,8 @@ app.use(
   express.static(path.join(__dirname, '/node_modules/admin-lte'))
 );
 
-app.use('/', indexRouter);
+app.use('/', dashboardRouter);
+app.use('/category', categoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
