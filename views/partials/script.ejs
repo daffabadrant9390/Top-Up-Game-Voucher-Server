@@ -31,6 +31,8 @@
     <script src="/adminlte/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/adminlte/dist/js/demo.js"></script>
+    <!-- Select2 -->
+    <script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
     <!-- Page specific script -->
     <script>
       $(function () {
@@ -47,6 +49,9 @@
           "autoWidth": false,
           "responsive": true,
         });
+
+        //Initialize Select2 Elements
+        $('.select2').select2()
       });
     </script>
   </body>

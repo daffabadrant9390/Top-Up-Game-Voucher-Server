@@ -7,13 +7,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Category</h1>
+          <h1>Nominal</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="/category">Category</a></li>
-            <li class="breadcrumb-item active">Create category Data</li>
+            <li class="breadcrumb-item"><a href="/nominal">Nominal</a></li>
+            <li class="breadcrumb-item active">Create Nominal Data</li>
           </ol>
         </div>
       </div>
@@ -29,20 +29,45 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Add Category Form</h3>
+              <h3 class="card-title">Add Nominal Form</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="/category/create-category" method="post">
+            <form action="/nominal/create-nominal" method="post">
               <div class="card-body">
                 <div class="form-group">
-                  <label for="category_name">Category name</label>
+                  <label>Nominal (Coin) Type</label>
+                  <select
+                    class="form-control select2"
+                    style="width: 100%"
+                    name="nominal_type"
+                    required
+                  >
+                    <option selected="selected">Choose coin type</option>
+                    <option>Gold</option>
+                    <option>Diamond</option>
+                    <option>Jewel</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="nominal_quantity">Nominal (Coin) Quantity</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
-                    id="category_name"
-                    placeholder="Enter category name"
-                    name="category_name"
+                    id="nominal_quantity"
+                    value="0"
+                    name="nominal_quantity"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="price">Total Price</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="price"
+                    value="0"
+                    name="price"
                     required
                   />
                 </div>
