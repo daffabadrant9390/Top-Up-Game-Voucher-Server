@@ -1,0 +1,159 @@
+<%-include ../../partials/header.ejs %> <%-include ../../partials/navbar.ejs %>
+<%-include ../../partials/sidebar.ejs %>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Voucher</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/voucher">Voucher</a></li>
+            <li class="breadcrumb-item active">Create Voucher Data</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Add Voucher Form</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form
+              action="/voucher/create-voucher"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="game_name">Game name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="game_name"
+                    name="game_name"
+                    placeholder="Enter game name..."
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Category</label>
+                  <select
+                    class="form-control select2"
+                    style="width: 100%"
+                    name="category_name"
+                    required
+                  >
+                    <option selected="selected">Choose category type</option>
+                    <% categoryData.forEach(category => { %>
+                    <option value="<%= category._id %>">
+                      <%= category.name %>
+                    </option>
+                    <% }) %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="nominal_quantity">Nominal Data</label>
+                  <div class="select2-purple">
+                    <select
+                      class="form-control select2"
+                      style="width: 100%"
+                      name="nominal_data"
+                      required
+                      multiple="multiple"
+                      data-placeholder="Choose nominal data"
+                    >
+                      <% nominalData.forEach(nominal => { %>
+                      <option value="<%= nominal._id %>">
+                        <%= nominal.coinType %> <%= nominal.coinQuantity %>
+                      </option>
+                      <% }) %>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="voucher_status">Status</label>
+                  <select
+                    class="form-control select2"
+                    style="width: 100%"
+                    name="voucher_status"
+                    id="voucher_status"
+                    required
+                  >
+                    <% voucherStatusEnum.forEach(status => { %>
+                    <option value="<%= status %>" 
+                      <% if(status.toUpperCase() === "ACTIVE") { %>  
+                          selected
+                      <% } %>  
+                    >
+                      <%= status %>
+                    </option>
+                    <% }) %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="img_thumbnail">Thumbnail Image</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="img_thumbnail"
+                    name="img_thumbnail"
+                    placeholder="Select thumbnail image"
+                  />
+                  <br />
+                  <img src="" id="img_preview" />
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<%-include ../../partials/footer.ejs %> <%-include ../../partials/script.ejs %>
+<script>
+  const readUrl = (input) => {
+    console.log('input: ', input.files);
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        $('#img_preview').attr('src', e.target.result);
+        $('#img_preview').attr('width', '200px');
+        $('#img_preview').attr('height', '200px');
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  };
+
+  $('#img_thumbnail').change((e) => {
+    readUrl(e.currentTarget);
+  });
+</script>

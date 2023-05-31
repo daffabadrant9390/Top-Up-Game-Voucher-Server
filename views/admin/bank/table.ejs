@@ -2,22 +2,26 @@
   <thead>
     <tr>
       <th>No</th>
-      <th>Category Name</th>
+      <th>Card Holder Name</th>
+      <th>Bank Name</th>
+      <th>Card Number</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <% for(let i = 0; i < categoryData.length; i++) { %>
+    <% for(let i = 0; i < bankData.length; i++) { %>
     <tr>
       <td><%= i + 1 %></td>
-      <td><%= categoryData[i].name %></td>
+      <td><%= bankData[i].cardHolderName %></td>
+      <td><%= bankData[i].bankName %></td>
+      <td><%= bankData[i].cardNumber %></td>
       <td>
         <form
-          action="/category/delete-category/<%= categoryData[i]._id %>?_method=DELETE"
+          action="/bank/delete-bank/<%= bankData[i]._id %>?_method=DELETE"
           method="POST"
         >
           <a
-            href="/category/edit-category/<%= categoryData[i]._id %>"
+            href="/bank/edit-bank/<%= bankData[i]._id %>"
             class="btn btn-sm btn-warning"
             ><i class="fas fa-pencil-alt"></i> Edit</a
           >

@@ -1,0 +1,62 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Game name</th>
+      <th>Category</th>
+      <th>Nominal</th>
+      <th>Status</th>
+      <th>Image Preview</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i < voucherData.length; i++) { %>
+    <tr>
+      <td><%= i + 1 %></td>
+      <td><%= voucherData[i].gameName %></td>
+      <td><%= voucherData[i]?.category?.name ?? '-' %></td>
+      <td>
+        <% voucherData[i].nominals.forEach(nominal => { %>
+        <div class="badge badge-warning">
+          <%= nominal.coinType %> <%= nominal.coinQuantity %>
+        </div>
+        <% }) %>
+      </td>
+      <td>
+        <% if(voucherData[i].voucherStatus.toUpperCase() === "ACTIVE") { %>
+        <div class="badge badge-success">
+          <%= voucherData[i].voucherStatus %>
+        </div>
+        <% } else { %>
+        <div class="badge badge-danger">
+          <%= voucherData[i].voucherStatus %>
+        </div>
+        <% } %>
+      </td>
+      <td>
+        <img
+          src="http://localhost:3000/uploads/<%= voucherData[i].imageThumbnail %>"
+          style="width: 200px; height: 200px; border-radius: 8px"
+          alt="<%=voucherData[i].name %>"
+        />
+      </td>
+      <td>
+        <form
+          action="/voucher/delete-voucher/<%= voucherData[i]._id %>?_method=DELETE"
+          method="POST"
+        >
+          <a
+            href="/voucher/edit-voucher/<%= voucherData[i]._id %>"
+            class="btn btn-warning btn-sm"
+            ><i class="fas fa-pencil-alt"></i> Edit</a
+          >
+          <button type="submit" class="btn btn-danger btn-sm">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
