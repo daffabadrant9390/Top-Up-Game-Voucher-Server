@@ -1,0 +1,115 @@
+<%-include ../../partials/header.ejs %> <%-include ../../partials/navbar.ejs %>
+<%-include ../../partials/sidebar.ejs %>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Payment</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/payment">Payment</a></li>
+            <li class="breadcrumb-item active">Create Payment Data</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Add Payment Form</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form
+              action="/payment/create-payment"
+              method="post"
+            >
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Payment type</label>
+                  <select
+                    class="form-control select2"
+                    style="width: 100%"
+                    name="payment_type"
+                    required
+                  >
+                    <option selected="selected">Choose payment type</option>
+                    <% paymentTypeConstant.forEach(paymentType => { %>
+                    <option value="<%= paymentType %>">
+                      <%= paymentType %>
+                    </option>
+                    <% }) %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="nominal_quantity">Bank data</label>
+                  <div class="select2-purple">
+                    <select
+                      class="form-control select2"
+                      style="width: 100%"
+                      name="bank_data"
+                      required
+                      multiple="multiple"
+                      data-placeholder="Choose nominal data"
+                    >
+                      <% banksData.forEach(bank => { %>
+                      <option value="<%= bank._id %>">
+                        <%= bank.cardHolderName %>-<%= bank.bankName %>-<%= bank.cardNumber %>
+                      </option>
+                      <% }) %>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="payment_status">Status</label>
+                  <select
+                    class="form-control select2"
+                    style="width: 100%"
+                    name="payment_status"
+                    id="payment_status"
+                    required
+                  >
+                    <% STATUS.forEach(statusItem => { %>
+                    <option value="<%= statusItem %>" 
+                      <% if(statusItem.toUpperCase() === "ACTIVE") { %>  
+                          selected
+                      <% } %>  
+                    >
+                      <%= statusItem %>
+                    </option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<%-include ../../partials/footer.ejs %> <%-include ../../partials/script.ejs %>

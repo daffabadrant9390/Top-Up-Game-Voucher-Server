@@ -9,8 +9,6 @@ module.exports = {
           - Send the Category data to view_category.ejs, then do looping to show the data on ejs file
       */
       const categoryData = await CategoryModel.find();
-      console.log('categoryData: ', categoryData);
-
       /*
         Get alert / notification data using connect-flash
           - define the variable and key for alertMessage
@@ -23,7 +21,6 @@ module.exports = {
         message: alertMessage || '',
         status: alertStatus || '',
       };
-      console.log('alertData data: ', alertData);
 
       res.render('admin/category/view_category', {
         categoryData,

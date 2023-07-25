@@ -1,11 +1,10 @@
 const NominalModel = require('./model');
-const verifiedCoinType = require('./constant');
+const COIN_TYPE = require('./constant');
 
 module.exports = {
   index: async (req, res) => {
     try {
       const nominalData = await NominalModel.find();
-      console.log('nominalData: ', nominalData);
 
       const alertMessage = req.flash('alertMessage');
       const alertStatus = req.flash('alertStatus');
@@ -27,7 +26,9 @@ module.exports = {
   },
   renderCreateNominalPage: async (req, res) => {
     try {
-      res.render('admin/nominal/create_nominal');
+      res.render('admin/nominal/create_nominal', {
+        COIN_TYPE,
+      });
     } catch (error) {
       req.flash('alertMessage', `Error Occurred: ${error.message}`);
       req.flash('alertStatus', 'danger');
@@ -39,7 +40,7 @@ module.exports = {
   createNominal: async (req, res) => {
     try {
       const { nominal_type, nominal_quantity, price } = req.body;
-      const isNominalTypeCorrect = verifiedCoinType.includes(
+      const isNominalTypeCorrect = COIN_TYPE.includes(
         (nominal_type || '').toUpperCase()
       );
 
@@ -90,6 +91,7 @@ module.exports = {
       if (!!nominalData) {
         res.render('admin/nominal/edit_nominal', {
           nominalData,
+          COIN_TYPE,
         });
       } else {
         res.send({
@@ -110,7 +112,7 @@ module.exports = {
       const { nominal_type, nominal_quantity, price } = req.body;
       const isNominalTypeCorrect =
         !!nominal_type &&
-        verifiedCoinType.includes((nominal_type || '').toUpperCase());
+        COIN_TYPE.includes((nominal_type || '').toUpperCase());
       if (
         !!nominal_type &&
         !!nominal_quantity &&

@@ -49,21 +49,13 @@
                     <option selected="selected">
                       Choose coin type
                     </option>
-                    <option value="Gold" 
-                      <% if(nominalData.coinType === "Gold") { %>
-                        selected
-                      <% } %>
-                    >Gold</option>
-                    <option value="Diamond" 
-                      <% if(nominalData.coinType === "Diamond") { %>
-                        selected
-                      <% } %>
-                    >Diamond</option>
-                    <option value="Jewel"
-                      <% if(nominalData.coinType === "Jewel") { %>
-                        selected
-                      <% } %>
-                    >Jewel</option>
+                    <% for(let i = 0; i < COIN_TYPE.length; i++) { %>
+                      <option value="<%= COIN_TYPE[i][0].toUpperCase() + COIN_TYPE[i].substring(1).toLowerCase() %>"
+                        <% if(nominalData.coinType.toUpperCase() === COIN_TYPE[i]) { %>
+                          selected
+                        <% } %>
+                      ><%= COIN_TYPE[i][0].toUpperCase() + COIN_TYPE[i].substring(1).toLowerCase() %></option>
+                    <% } %>
                   </select>
                 </div>
                 <div class="form-group">
