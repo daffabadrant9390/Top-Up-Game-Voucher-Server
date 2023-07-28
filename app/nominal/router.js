@@ -8,7 +8,9 @@ const {
   editNominal,
   deleteNominal,
 } = require('./controller');
+const { isLogin } = require('../middleware/auth');
 
+router.use(isLogin);
 router.get('/', index);
 router.get('/create-nominal', renderCreateNominalPage);
 router.post('/create-nominal', createNominal);

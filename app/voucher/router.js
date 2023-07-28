@@ -10,7 +10,9 @@ const {
 const router = express.Router();
 const multer = require('multer');
 const os = require('os');
+const { isLogin } = require('../middleware/auth');
 
+router.use(isLogin);
 router.get('/', index);
 router.get('/create-voucher', renderCreateVoucherPage);
 router.post(

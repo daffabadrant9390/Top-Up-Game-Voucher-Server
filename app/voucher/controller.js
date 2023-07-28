@@ -9,6 +9,7 @@ const voucherStatusEnum = require('./constant');
 module.exports = {
   index: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
       const alertMessage = req.flash('alertMessage');
       const alertStatus = req.flash('alertStatus');
       const alertData = { message: alertMessage, status: alertStatus };
@@ -20,6 +21,8 @@ module.exports = {
       res.render('admin/voucher/view_voucher', {
         alertData,
         voucherData,
+        title: 'Voucher Page',
+        name: name || '',
       });
     } catch (error) {
       req.flash('alertMessage', `Error Occurred: ${error.message}`);
@@ -31,12 +34,16 @@ module.exports = {
   },
   renderCreateVoucherPage: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
+
       const categoryData = await CategoryModel.find();
       const nominalData = await NominalModel.find();
       res.render('admin/voucher/create_voucher', {
         categoryData,
         nominalData,
         voucherStatusEnum,
+        title: 'Create Voucher Page',
+        name: name || '',
       });
     } catch (error) {
       req.flash('alertMessage', `Error Occurred: ${error.message}`);
@@ -142,6 +149,8 @@ module.exports = {
   },
   renderEditVoucherPage: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
+
       const { id } = req.params;
 
       const nominalData = await NominalModel.find();
@@ -159,6 +168,8 @@ module.exports = {
           categoryData,
           voucherData,
           voucherStatusEnum,
+          title: 'Edit Voucher Page',
+          name: name || '',
         });
       } else {
         req.flash(

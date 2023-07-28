@@ -3,6 +3,7 @@ const CategoryModel = require('./model');
 module.exports = {
   index: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
       /*
         Showing the Category data to index page
           - Grab the Category data from CategoryModel
@@ -25,6 +26,8 @@ module.exports = {
       res.render('admin/category/view_category', {
         categoryData,
         alertData,
+        title: 'Category Page',
+        name: name || '',
       });
     } catch (error) {
       console.log(error);
@@ -32,7 +35,11 @@ module.exports = {
   },
   renderCreateCategoryPage: async (req, res) => {
     try {
-      res.render('admin/category/create_category');
+      const { name } = req.session.user || {};
+      res.render('admin/category/create_category', {
+        title: 'Create Category Page',
+        name: name || '',
+      });
     } catch (error) {
       console.log(error);
     }
@@ -62,6 +69,7 @@ module.exports = {
   },
   renderEditCategoryPage: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
       const { id } = req.params;
       const getCategoryById = await CategoryModel.findOne({
         _id: id,
@@ -72,6 +80,8 @@ module.exports = {
 
         res.render('admin/category/edit_category', {
           categoryData: getCategoryById,
+          title: 'Edit Category Page',
+          name: name || '',
         });
       } else {
         res.send('The id you are looking for is not exist');

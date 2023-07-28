@@ -8,7 +8,9 @@ const {
   editBank,
   deleteBank,
 } = require('./controller');
+const { isLogin } = require('../middleware/auth');
 
+router.use(isLogin);
 router.get('/', index);
 router.get('/create-bank', renderCreateBankPage);
 router.post('/create-bank', createBank);

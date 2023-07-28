@@ -8,7 +8,9 @@ const {
   editPayment,
   deletePayment,
 } = require('./controller');
+const { isLogin } = require('../middleware/auth');
 
+router.use(isLogin);
 router.get('/', index);
 router.get('/create-payment', renderCreatePaymentPage);
 router.post('/create-payment', createPayment);

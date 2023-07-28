@@ -8,7 +8,9 @@ const {
   editCategory,
   deleteCategory,
 } = require('./controller');
+const { isLogin } = require('../middleware/auth');
 
+router.use(isLogin);
 router.get('/', index);
 router.get('/create-category', renderCreateCategoryPage);
 router.post('/create-category', createCategory);

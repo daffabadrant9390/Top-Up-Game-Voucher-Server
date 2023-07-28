@@ -3,6 +3,8 @@ const bankNameConstant = require('./constant');
 module.exports = {
   index: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
+
       const alertMessage = req.flash('alertMessage');
       const alertStatus = req.flash('alertStatus');
       const alertData = { message: alertMessage, status: alertStatus };
@@ -10,6 +12,8 @@ module.exports = {
       res.render('admin/bank/view_bank', {
         alertData,
         bankData,
+        title: 'Bank Page',
+        name: name || '',
       });
     } catch (error) {
       req.flash('alertMessage', `Error Occurred: ${error.message}`);
@@ -21,12 +25,16 @@ module.exports = {
   },
   renderCreateBankPage: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
+
       const alertMessage = req.flash('alertMessage');
       const alertStatus = req.flash('alertStatus');
       const alertData = { message: alertMessage, status: alertStatus };
       res.render('admin/bank/create_bank', {
         bankNameConstant,
         alertData,
+        title: 'Create Bank Page',
+        name: name || '',
       });
     } catch (error) {
       req.flash('alertMessage', `Error Occurred: ${error.message}`);
@@ -87,6 +95,8 @@ module.exports = {
   },
   renderEditBankPage: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
+
       const { id } = req.params;
       const bankData = await BankModel.findOne({
         _id: id,
@@ -101,6 +111,8 @@ module.exports = {
           bankData,
           bankNameConstant,
           alertData,
+          title: 'Edit Bank Page',
+          name: name || '',
         });
       } else {
         req.flash('alertMessage', `Error Occurred: Bank data not found!`);

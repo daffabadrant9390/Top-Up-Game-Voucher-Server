@@ -4,6 +4,7 @@ const COIN_TYPE = require('./constant');
 module.exports = {
   index: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
       const nominalData = await NominalModel.find();
 
       const alertMessage = req.flash('alertMessage');
@@ -15,6 +16,8 @@ module.exports = {
       res.render('admin/nominal/view_nominal', {
         alertData,
         nominalData,
+        title: 'Nominal Page',
+        name: name || '',
       });
     } catch (error) {
       req.flash('alertMessage', `Error Occurred: ${error.message}`);
@@ -26,8 +29,12 @@ module.exports = {
   },
   renderCreateNominalPage: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
+
       res.render('admin/nominal/create_nominal', {
         COIN_TYPE,
+        title: 'Create Nominal Page',
+        name: name || '',
       });
     } catch (error) {
       req.flash('alertMessage', `Error Occurred: ${error.message}`);
@@ -83,6 +90,7 @@ module.exports = {
   },
   renderEditNominalPage: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
       const { id } = req.params;
       const nominalData = await NominalModel.findOne({
         _id: id,
@@ -92,6 +100,8 @@ module.exports = {
         res.render('admin/nominal/edit_nominal', {
           nominalData,
           COIN_TYPE,
+          title: 'Edit Nominal Page',
+          name: name || '',
         });
       } else {
         res.send({

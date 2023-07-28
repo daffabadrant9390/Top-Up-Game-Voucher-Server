@@ -6,6 +6,8 @@ const { STATUS } = require('../constant');
 module.exports = {
   index: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
+
       const paymentData = await PaymentModel.find().populate('banksData');
 
       const alertMessage = req.flash('alertMessage');
@@ -18,6 +20,8 @@ module.exports = {
       res.render('admin/payment/view_payment', {
         paymentData,
         alertData,
+        title: 'Payment Page',
+        name: name || '',
       });
     } catch (error) {
       req.flash('alertMessage', `Error Occurred: ${error.message}`);
@@ -29,11 +33,15 @@ module.exports = {
   },
   renderCreatePaymentPage: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
+
       const banksData = await BankModel.find();
       res.render('admin/payment/create_payment', {
         banksData,
         paymentTypeConstant,
         STATUS,
+        title: 'Create Payment Page',
+        name: name || '',
       });
     } catch (error) {
       req.flash('alertMessage', `Error Occurred: ${error.message}`);
@@ -80,6 +88,8 @@ module.exports = {
   },
   renderEditPaymentPage: async (req, res) => {
     try {
+      const { name } = req.session.user || {};
+
       const { id } = req.params;
       const paymentData = await PaymentModel.findOne({ _id: id }).populate(
         'banksData'
@@ -92,6 +102,8 @@ module.exports = {
           STATUS,
           banksData,
           paymentTypeConstant,
+          title: 'Edit Payment Page',
+          name: name || '',
         });
       } else {
         req.flash('alertMessage', `Error Occurred: Payment data is not found!`);

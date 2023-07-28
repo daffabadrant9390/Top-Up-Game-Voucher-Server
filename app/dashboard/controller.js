@@ -1,7 +1,11 @@
 module.exports = {
   index: async (req, res) => {
     try {
-      res.render('index', { title: 'Dashboard Express Js' });
+      const { name } = req.session.user || {};
+      res.render('index', {
+        title: 'Dashboard Page',
+        name: name || '',
+      });
     } catch (e) {
       console.error(e);
     }
