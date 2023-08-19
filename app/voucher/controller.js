@@ -15,8 +15,8 @@ module.exports = {
       const alertData = { message: alertMessage, status: alertStatus };
 
       const voucherData = await VoucherModel.find()
-        .populate('nominals')
-        .populate('category');
+        .populate('nominalsData')
+        .populate('categoryData');
 
       res.render('admin/voucher/view_voucher', {
         alertData,
@@ -36,11 +36,11 @@ module.exports = {
     try {
       const { name } = req.session.user || {};
 
-      const categoryData = await CategoryModel.find();
-      const nominalData = await NominalModel.find();
+      const categoryDataModel = await CategoryModel.find();
+      const nominalDataModel = await NominalModel.find();
       res.render('admin/voucher/create_voucher', {
-        categoryData,
-        nominalData,
+        categoryDataModel,
+        nominalDataModel,
         voucherStatusEnum,
         title: 'Create Voucher Page',
         name: name || '',
@@ -87,9 +87,9 @@ module.exports = {
           try {
             const newVoucher = await VoucherModel.create({
               gameName: game_name,
-              category: category_name,
-              nominals: nominal_data,
-              voucherStatus: voucher_status,
+              categoryData: category_name,
+              nominalsData: nominal_data,
+              status: voucher_status,
               imageThumbnail: finalFilename,
             });
 
@@ -119,9 +119,9 @@ module.exports = {
         // If there is no file changed inside req (not change the image thumbnail)
         const newVoucher = await VoucherModel.create({
           gameName: game_name,
-          category: category_name,
-          nominals: nominal_data,
-          voucherStatus: voucher_status,
+          categoryData: category_name,
+          nominalsData: nominal_data,
+          status: voucher_status,
         });
 
         if (!!newVoucher) {
@@ -153,19 +153,20 @@ module.exports = {
 
       const { id } = req.params;
 
-      const nominalData = await NominalModel.find();
-      const categoryData = await CategoryModel.find();
+      const nominalDataModel = await NominalModel.find();
+      const categoryDataModel = await CategoryModel.find();
       const voucherData = await VoucherModel.findOne({
         _id: id,
       })
-        .populate('nominals')
-        .populate('category');
+        .populate('nominalsData')
+        .populate('categoryData');
 
-      console.log('voucherData edit: ', voucherData);
+      console.log('categoryDataModel: ', categoryDataModel);
+
       if (!!voucherData) {
         res.render('admin/voucher/edit_voucher', {
-          nominalData,
-          categoryData,
+          nominalDataModel,
+          categoryDataModel,
           voucherData,
           voucherStatusEnum,
           title: 'Edit Voucher Page',
@@ -237,9 +238,9 @@ module.exports = {
                 },
                 {
                   gameName: game_name,
-                  category: category_name,
-                  nominals: nominal_data,
-                  voucherStatus: voucher_status,
+                  categoryData: category_name,
+                  nominalsData: nominal_data,
+                  status: voucher_status,
                   imageThumbnail: finalFilename,
                 }
               );
@@ -274,9 +275,9 @@ module.exports = {
             },
             {
               gameName: game_name,
-              category: category_name,
-              nominals: nominal_data,
-              voucherStatus: voucher_status,
+              categoryData: category_name,
+              nominalsData: nominal_data,
+              status: voucher_status,
             }
           );
 

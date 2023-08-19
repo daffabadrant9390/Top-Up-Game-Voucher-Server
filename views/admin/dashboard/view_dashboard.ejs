@@ -1,5 +1,5 @@
-<%-include ./partials/header.ejs %> <%-include ./partials/navbar.ejs %>
-<%-include ./partials/sidebar.ejs %>
+<%-include ../../partials/header.ejs %> <%-include ../../partials/navbar.ejs %>
+<%-include ../../partials/sidebar.ejs %>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -33,14 +33,14 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>150</h3>
+              <h3><%= totalData?.totalTransaction ?? 0 %></h3>
 
-              <p>New Orders</p>
+              <p>Transactions</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer"
+            <a href="/transaction" class="small-box-footer"
               >More info <i class="fas fa-arrow-circle-right"></i
             ></a>
           </div>
@@ -50,14 +50,14 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3><%= totalData?.totalVoucher ?? 0 %></h3>
 
-              <p>Bounce Rate</p>
+              <p>Voucher</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer"
+            <a href="/voucher" class="small-box-footer"
               >More info <i class="fas fa-arrow-circle-right"></i
             ></a>
           </div>
@@ -67,9 +67,9 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>44</h3>
+              <h3><%= totalData?.totalPlayer ?? 0 %></h3>
 
-              <p>User Registrations</p>
+              <p>Player</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -84,14 +84,14 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>65</h3>
+              <h3><%= totalData?.totalCategory ?? 0 %></h3>
 
-              <p>Unique Visitors</p>
+              <p>Category</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer"
+            <a href="/category" class="small-box-footer"
               >More info <i class="fas fa-arrow-circle-right"></i
             ></a>
           </div>
@@ -105,4 +105,4 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<%-include ./partials/footer.ejs %> <%-include ./partials/script.ejs %>
+<%-include ../../partials/footer.ejs %> <%-include ../../partials/script.ejs %>

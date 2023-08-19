@@ -1,0 +1,49 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Phone number</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i < playerData.length; i++) { %>
+    <tr>
+      <td><%= i + 1 %></td>
+      <td><%= playerData[i].name %></td>
+      <td>
+        <div class="badge badge-success"><%= playerData[i].username %></div>
+      </td>
+      <td><%= playerData[i].email %></td>
+      <td><%= playerData[i].phoneNumber %></td>
+      <td>
+        <% if(playerData[i].status.toUpperCase() === "ACTIVE") { %>
+        <div class="badge badge-success"><%= playerData[i].status %></div>
+        <% } else { %>
+        <div class="badge badge-danger"><%= playerData[i].status %></div>
+        <% } %>
+      </td>
+      <td>
+        <form
+          action="/player/status/<%= playerData[i]._id %>?status=<%= playerData[i].status === 'ACTIVE' ? 'disabled' : 'enabled' %>&_method=PUT"
+          method="POST"
+        >
+          <% if(playerData[i].status.toUpperCase() === "ACTIVE") { %>
+          <button type="submit" class="btn btn-danger btn-sm">
+            <i class="fas fa-times-circle"></i> Disable Player
+          </button>
+          <% } else { %>
+          <button type="submit" class="btn btn-info btn-sm">
+            <i class="fas fa-check"></i> Enable Player
+          </button>
+          <% } %>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

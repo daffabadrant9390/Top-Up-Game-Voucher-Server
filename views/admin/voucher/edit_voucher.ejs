@@ -59,9 +59,9 @@
                     required
                   >
                     <option selected="selected">Choose category type</option>
-                    <% categoryData.forEach(category => { %>
+                    <% categoryDataModel.forEach(category => { %>
                     <option value="<%= category._id %>" 
-                      <% if(category._id.toString() === voucherData?.category?._id?.toString()) { %>  
+                      <% if(category._id.toString() === voucherData?.categoryData?._id?.toString()) { %>  
                           selected
                       <% } %>  
                     >
@@ -81,9 +81,9 @@
                       multiple="multiple"
                       data-placeholder="Choose nominal data"
                     >
-                      <% nominalData.forEach(nominal => { %>
+                      <% nominalDataModel.forEach(nominal => { %>
                       <option value="<%= nominal._id %>"
-                        <% voucherData.nominals.forEach(voucherNominal => { %>
+                        <% voucherData.nominalsData.forEach(voucherNominal => { %>
                           <% if(nominal._id.toString() === voucherNominal._id.toString()) { %>
                             selected  
                           <% } %>  
@@ -115,7 +115,7 @@
                   >
                     <% voucherStatusEnum.forEach(status => { %>
                     <option value="<%= status %>" 
-                      <% if(voucherData.voucherStatus.toUpperCase() === status) { %>  
+                      <% if(voucherData.status.toUpperCase() === status) { %>  
                           selected
                       <% } %>  
                     >

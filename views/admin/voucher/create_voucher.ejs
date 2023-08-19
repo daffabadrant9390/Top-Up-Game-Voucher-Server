@@ -59,7 +59,7 @@
                     required
                   >
                     <option selected="selected">Choose category type</option>
-                    <% categoryData.forEach(category => { %>
+                    <% categoryDataModel.forEach(category => { %>
                     <option value="<%= category._id %>">
                       <%= category.name %>
                     </option>
@@ -77,7 +77,7 @@
                       multiple="multiple"
                       data-placeholder="Choose nominal data"
                     >
-                      <% nominalData.forEach(nominal => { %>
+                      <% nominalDataModel.forEach(nominal => { %>
                       <option value="<%= nominal._id %>">
                         <%= nominal.coinType %> <%= nominal.coinQuantity %>
                       </option>
