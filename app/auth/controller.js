@@ -118,7 +118,7 @@ module.exports = {
           } = player || {};
 
           // Check if the password is correct or not using bcryptjs
-          const validatePassword = bcrypt.compare(password, playerPassword);
+          const validatePassword = bcrypt.compareSync(password, playerPassword);
 
           if (validatePassword) {
             // Create jwt token from the player data
