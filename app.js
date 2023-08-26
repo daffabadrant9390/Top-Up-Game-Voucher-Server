@@ -1,3 +1,4 @@
+var cors = require('cors');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -16,8 +17,13 @@ const bankRouter = require('./app/bank/router');
 const paymentRouter = require('./app/payment/router');
 const transactionRouter = require('./app/transaction/router');
 const playerRouter = require('./app/player/router');
+const authRouter = require('./app/auth/router');
+const bodyParser = require('body-parser');
 
 var app = express();
+// For API integration
+const apiUrl = '/api/v1';
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,6 +37,7 @@ app.use(
     cookie: {},
   })
 );
+
 app.use(flash());
 app.use(methodOverride('_method'));
 app.use(logger('dev'));
@@ -43,6 +50,12 @@ app.use(
   express.static(path.join(__dirname, '/node_modules/admin-lte'))
 );
 
+// body parser
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
+
 app.use('/', userRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/category', categoryRouter);
@@ -51,7 +64,11 @@ app.use('/voucher', voucherRouter);
 app.use('/bank', bankRouter);
 app.use('/payment', paymentRouter);
 app.use('/transaction', transactionRouter);
-app.use('/player', playerRouter);
+// app.use('/player', playerRouter);
+
+// API
+app.use(`${apiUrl}/players`, playerRouter);
+app.use(`${apiUrl}/auth`, authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

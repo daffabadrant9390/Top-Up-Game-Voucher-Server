@@ -62,7 +62,7 @@ module.exports = {
         voucher_status,
         img_thumbnail,
       } = req.body;
-      console.log('req.body: ', req.body);
+      console.log('req.body voucher: ', req.body);
 
       // If there is file changed inside req
       if (!!req.file) {
